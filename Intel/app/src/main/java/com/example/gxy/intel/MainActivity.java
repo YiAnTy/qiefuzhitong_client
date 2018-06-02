@@ -21,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.gxy.intel.fragment.AssistFragment;
 import com.example.gxy.intel.fragment.DiagnoseFragment;
 import com.example.gxy.intel.fragment.ResultFragment;
 import com.example.gxy.intel.fragment.TreatFragment;
@@ -109,9 +110,13 @@ public class MainActivity extends AppCompatActivity
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_monitor) {
-            Toast.makeText(this, "Unfinished", Toast.LENGTH_SHORT).show();
+            finish();
+            Intent intent = new Intent(getApplicationContext(), MonitorActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_setting) {
-            Toast.makeText(this, "Unfinished", Toast.LENGTH_SHORT).show();
+            finish();
+            Intent intent = new Intent(getApplicationContext(), SettingActivity.class);
+            startActivity(intent);
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -123,6 +128,7 @@ public class MainActivity extends AppCompatActivity
     private void register_events() {
 
         TextView diagnose = findViewById(R.id.diagnose);
+        TextView assist = findViewById(R.id.assist);
         TextView result = findViewById(R.id.result);
         TextView treat = findViewById(R.id.treat);
 
@@ -134,6 +140,7 @@ public class MainActivity extends AppCompatActivity
         };
 
         diagnose.setOnClickListener(clickListener);
+        assist.setOnClickListener(clickListener);
         result.setOnClickListener(clickListener);
         treat.setOnClickListener(clickListener);
     }
@@ -143,25 +150,36 @@ public class MainActivity extends AppCompatActivity
         ImageView diagnose_img = findViewById(R.id.diagnose_img);
         ImageView result_img = findViewById(R.id.result_img);
         ImageView treat_img = findViewById(R.id.treat_img);
+        ImageView assist_img = findViewById(R.id.assist_img);
 
         switch (view.getId()) {
             case R.id.diagnose:
                 diagnose_img.setBackgroundColor(Color.parseColor("#FFFF8C"));
+                assist_img.setBackgroundColor(Color.alpha((0)));
                 treat_img.setBackgroundColor(Color.alpha(0));
                 result_img.setBackgroundColor(Color.alpha(0));
                 mViewPager.setCurrentItem(0);
                 break;
-            case R.id.result:
+            case R.id.assist:
+                assist_img.setBackgroundColor(Color.parseColor("#FFFF8C"));
                 diagnose_img.setBackgroundColor(Color.alpha(0));
-                treat_img.setBackgroundColor(Color.parseColor("#FFFF8C"));
+                treat_img.setBackgroundColor(Color.alpha(0));
                 result_img.setBackgroundColor(Color.alpha(0));
                 mViewPager.setCurrentItem(1);
                 break;
+            case R.id.result:
+                diagnose_img.setBackgroundColor(Color.alpha(0));
+                assist_img.setBackgroundColor(Color.alpha((0)));
+                treat_img.setBackgroundColor(Color.parseColor("#FFFF8C"));
+                result_img.setBackgroundColor(Color.alpha(0));
+                mViewPager.setCurrentItem(2);
+                break;
             case R.id.treat:
                 diagnose_img.setBackgroundColor(Color.alpha(0));
+                assist_img.setBackgroundColor(Color.alpha((0)));
                 treat_img.setBackgroundColor(Color.alpha(0));
                 result_img.setBackgroundColor(Color.parseColor("#FFFF8C"));
-                mViewPager.setCurrentItem(2);
+                mViewPager.setCurrentItem(3);
                 break;
             default:
                 break;
@@ -173,15 +191,24 @@ public class MainActivity extends AppCompatActivity
         ImageView diagnose_img = findViewById(R.id.diagnose_img);
         ImageView treat_img = findViewById(R.id.treat_img);
         ImageView result_img = findViewById(R.id.result_img);
+        ImageView assist_img = findViewById(R.id.assist_img);
 
         switch (position) {
             case 0:
                 diagnose_img.setBackgroundColor(Color.parseColor("#FFFF8C"));
                 treat_img.setBackgroundColor(Color.alpha(0));
                 result_img.setBackgroundColor(Color.alpha(0));
+                assist_img.setBackgroundColor(Color.alpha(0));
                 break;
             case 1:
                 diagnose_img.setBackgroundColor(Color.alpha(0));
+                treat_img.setBackgroundColor(Color.alpha(0));
+                result_img.setBackgroundColor(Color.alpha(0));
+                assist_img.setBackgroundColor(Color.parseColor("#FFFF8C"));
+                break;
+            case 2:
+                diagnose_img.setBackgroundColor(Color.alpha(0));
+                assist_img.setBackgroundColor(Color.alpha(0));
                 treat_img.setBackgroundColor(Color.alpha(0));
                 result_img.setBackgroundColor(Color.parseColor("#FFFF8C"));
                 if (result_title != null) {
@@ -197,7 +224,7 @@ public class MainActivity extends AppCompatActivity
                     bitmap = null;
                 }
                 break;
-            case 2:
+            case 3:
                 diagnose_img.setBackgroundColor(Color.alpha(0));
                 treat_img.setBackgroundColor(Color.parseColor("#FFFF8C"));
                 result_img.setBackgroundColor(Color.alpha(0));
@@ -216,6 +243,7 @@ public class MainActivity extends AppCompatActivity
         mViewPager = findViewById(R.id.viewpager);
         //将四个Fragment加入集合中
         mFragments.add(new DiagnoseFragment());
+        mFragments.add(new AssistFragment());
         mFragments.add(new ResultFragment());
         mFragments.add(new TreatFragment());
 
@@ -238,13 +266,13 @@ public class MainActivity extends AppCompatActivity
             @Override
             //页面滚动事件
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                if (position == 2) {
+                if (position == 3) {
                     if (treat_content != null) {
                         ((TextView)findViewById(R.id.tv_treat_content)).setText(treat_content);
                         treat_content = null;
                     }
                 }
-                else if (position == 1) {
+                else if (position == 2) {
                     if (result_title != null) {
                         ((TextView)findViewById(R.id.tv_result_title)).setText(result_title);
                         result_title = null;

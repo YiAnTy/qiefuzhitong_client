@@ -32,7 +32,14 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/diagnose"
-            android:launchMode="singleInstance"/>
+            android:launchMode="singleInstance" />
+        <activity
+            android:name=".SettingActivity"
+            android:label="@string/title_activity_setting"
+            android:theme="@style/AppTheme" />
+        <activity android:name=".MonitorActivity" />
+        <activity android:name=".AddMonitorActivity" />
+        <activity android:name=".MonitorDetailActivity"></activity>
     </application>
 
 </manifest>

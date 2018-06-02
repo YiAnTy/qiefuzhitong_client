@@ -16,19 +16,28 @@
             android:id="@+id/diagnose"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            android:layout_gravity="start|center_vertical"
             android:layout_weight="1"
+            android:layout_gravity="center_vertical"
             android:textAlignment="center"
             android:text="@string/diagnose"
             android:textColor="#FFFFFF"
             android:textSize="18sp" />
-
+        <TextView
+            android:id="@+id/assist"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:layout_gravity="center_vertical"
+            android:textAlignment="center"
+            android:text="@string/assist"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp" />
         <TextView
             android:id="@+id/result"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            android:layout_gravity="center"
             android:layout_weight="1"
+            android:layout_gravity="center_vertical"
             android:textAlignment="center"
             android:text="@string/result"
             android:textColor="#FFFFFF"
@@ -37,8 +46,8 @@
             android:id="@+id/treat"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            android:layout_gravity="end|center_vertical"
             android:layout_weight="1"
+            android:layout_gravity="center_vertical"
             android:textAlignment="center"
             android:text="@string/treat"
             android:textColor="#FFFFFF"
@@ -52,20 +61,22 @@
             android:id="@+id/diagnose_img"
             android:layout_height="4dp"
             android:layout_width="wrap_content"
-            android:layout_gravity="start|center_vertical"
             android:layout_weight="1"
             android:background="#FFFF8C" />
+        <ImageView
+            android:id="@+id/assist_img"
+            android:layout_width="wrap_content"
+            android:layout_height="4dp"
+            android:layout_weight="1" />
         <ImageView
             android:id="@+id/result_img"
             android:layout_height="4dp"
             android:layout_width="wrap_content"
-            android:layout_gravity="center"
             android:layout_weight="1" />
         <ImageView
             android:id="@+id/treat_img"
             android:layout_height="4dp"
             android:layout_width="wrap_content"
-            android:layout_gravity="end|center_vertical"
             android:layout_weight="1" />
     </LinearLayout>
     <android.support.v4.view.ViewPager
