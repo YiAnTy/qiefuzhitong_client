@@ -27,12 +27,12 @@ import java.util.logging.LogRecord;
  * Created by gxy on 18-3-7.
  */
 
-public class RVAdapter extends RecyclerView.Adapter<RVAdapter.ViewHolder> {
+public class MonitorRVAdapter extends RecyclerView.Adapter<MonitorRVAdapter.ViewHolder> {
 
     private ArrayList<JSONObject> mData;
     private Context context;
 
-    public RVAdapter(Context context, ArrayList<JSONObject> mData) {
+    public MonitorRVAdapter(Context context, ArrayList<JSONObject> mData) {
         this.mData = mData;
         this.context = context;
     }
@@ -44,14 +44,14 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.ViewHolder> {
 
 
     @Override
-    public RVAdapter.ViewHolder onCreateViewHolder(final ViewGroup parent, int viewType) {
+    public MonitorRVAdapter.ViewHolder onCreateViewHolder(final ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_item, parent, false);
         ViewHolder viewHolder = new ViewHolder(v);
         return new ViewHolder(v);
     }
 
     @Override
-    public void onBindViewHolder(final RVAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(final MonitorRVAdapter.ViewHolder holder, int position) {
         try {
             holder.tv_item_title.setText(mData.get(position).getString("monitor_name"));
             holder.tv_item_description.setText(mData.get(position).getString("monitor_description"));
@@ -88,9 +88,6 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.ViewHolder> {
         return mData == null ? 0 : mData.size();
     }
 
-    public void test(View view) {
-
-    }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 

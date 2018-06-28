@@ -19,7 +19,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.gxy.intel.fragment.AssistFragment;
 import com.example.gxy.intel.fragment.DiagnoseFragment;
@@ -40,6 +39,7 @@ public class MainActivity extends AppCompatActivity
     public static String result_content = null;
     public static String treat_content = null;
     public static Bitmap bitmap = null;
+    public static boolean questions = false;
 
 
     @Override
@@ -205,6 +205,10 @@ public class MainActivity extends AppCompatActivity
                 treat_img.setBackgroundColor(Color.alpha(0));
                 result_img.setBackgroundColor(Color.alpha(0));
                 assist_img.setBackgroundColor(Color.parseColor("#FFFF8C"));
+                if(MainActivity.questions) {
+                    ((AssistFragment)mFragments.get(1)).refresh();
+                    MainActivity.questions = false;
+                }
                 break;
             case 2:
                 diagnose_img.setBackgroundColor(Color.alpha(0));
@@ -213,15 +217,12 @@ public class MainActivity extends AppCompatActivity
                 result_img.setBackgroundColor(Color.parseColor("#FFFF8C"));
                 if (result_title != null) {
                     ((TextView)findViewById(R.id.tv_result_title)).setText(result_title);
-                    result_title = null;
                 }
                 if (result_content != null) {
                     ((TextView)findViewById(R.id.tv_result_content)).setText(result_content);
-                    result_content = null;
                 }
                 if (bitmap != null) {
                     ((ImageView)findViewById(R.id.iv_result_image)).setImageBitmap(bitmap);
-                    bitmap = null;
                 }
                 break;
             case 3:
@@ -230,7 +231,6 @@ public class MainActivity extends AppCompatActivity
                 result_img.setBackgroundColor(Color.alpha(0));
                 if (treat_content != null) {
                     ((TextView)findViewById(R.id.tv_treat_content)).setText(treat_content);
-                    treat_content = null;
                 }
                 break;
             default:
@@ -269,21 +269,24 @@ public class MainActivity extends AppCompatActivity
                 if (position == 3) {
                     if (treat_content != null) {
                         ((TextView)findViewById(R.id.tv_treat_content)).setText(treat_content);
-                        treat_content = null;
                     }
                 }
                 else if (position == 2) {
                     if (result_title != null) {
                         ((TextView)findViewById(R.id.tv_result_title)).setText(result_title);
-                        result_title = null;
                     }
                     if (result_content != null) {
                         ((TextView)findViewById(R.id.tv_result_content)).setText(result_content);
-                        result_content = null;
                     }
                     if (bitmap != null) {
                         ((ImageView)findViewById(R.id.iv_result_image)).setImageBitmap(bitmap);
-                        bitmap = null;
+                    }
+
+                }
+                else if (position == 1) {
+                    if(MainActivity.questions) {
+                        ((AssistFragment)mFragments.get(1)).refresh();
+                        MainActivity.questions = false;
                     }
 
                 }

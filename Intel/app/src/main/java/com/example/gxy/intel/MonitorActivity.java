@@ -19,7 +19,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.gxy.intel.adapter.RVAdapter;
+import com.example.gxy.intel.adapter.MonitorRVAdapter;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -91,6 +91,13 @@ public class MonitorActivity extends AppCompatActivity implements NavigationView
         async_http_post("http://123.56.28.84:8080/get_monitors", params, get_monitors_callback);
     }
 
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        HashMap<String, String> params = new HashMap<>();
+        params.put("token", getSharedPreferences("intel", Context.MODE_PRIVATE).getString("token", ""));
+        async_http_post("http://123.56.28.84:8080/get_monitors", params, get_monitors_callback);
+    }
     public void render(){
         tv_user_name.setText(getSharedPreferences("intel", Context.MODE_PRIVATE).getString("user_name", "Unknown"));
     }
@@ -104,6 +111,8 @@ public class MonitorActivity extends AppCompatActivity implements NavigationView
             super.onBackPressed();
         }
     }
+
+
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
@@ -177,7 +186,7 @@ public class MonitorActivity extends AppCompatActivity implements NavigationView
                         @Override
                         public void run() {
                             rv_monitor.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false));
-                            RVAdapter rvAdapter = new RVAdapter(getApplicationContext(), mData);
+                            MonitorRVAdapter rvAdapter = new MonitorRVAdapter(getApplicationContext(), mData);
                             rv_monitor.setAdapter(rvAdapter);
                         }
                     });

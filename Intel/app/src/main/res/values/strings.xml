@@ -59,4 +59,6 @@
     <string name="title_activity_add_monitor">AddMonitorActivity</string>
     <string name="title_activity_monitor_detail">MonitorDetailActivity</string>
     <string name="title_activity_setting">SettingActivity</string>
+    <string name="submit">提交</string>
+    <string name="title_activity_monitor_update_acitivity">MonitorUpdateAcitivity</string>
 </resources>

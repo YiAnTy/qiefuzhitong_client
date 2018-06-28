@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:textSize="20sp"
+    android:paddingTop="40dp">
+    <TextView
+        android:id="@+id/assist_item_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="textStart"
+        android:textSize="20sp"
+        android:text="您是否会感觉到疼痛?"/>
+    <RadioGroup
+        android:id="@+id/assist_item_radio_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <RadioButton
+            android:id="@+id/choice_yes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:checked="true"
+            android:text="是"/>
+        <RadioButton
+            android:id="@+id/choice_no"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:text="否"/>
+    </RadioGroup>
+</LinearLayout>

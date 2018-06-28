@@ -39,7 +39,8 @@
             android:theme="@style/AppTheme" />
         <activity android:name=".MonitorActivity" />
         <activity android:name=".AddMonitorActivity" />
-        <activity android:name=".MonitorDetailActivity"></activity>
+        <activity android:name=".MonitorDetailActivity" />
+        <activity android:name=".UpdateMonitorActivity" />
     </application>
 
 </manifest>

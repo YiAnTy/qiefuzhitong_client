@@ -4,6 +4,7 @@
     android:layout_marginTop="20dp"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/ll_assist_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="40dp"
@@ -23,34 +24,24 @@
             android:layout_gravity="center_horizontal"
             android:background="@color/colorPrimary"/>
         <LinearLayout
-            android:id="@+id/tv_assist_content"
-            android:orientation="vertical"
-            android:layout_width="300dp"
+            android:id="@+id/ll_assist_item_list"
+            android:layout_width="260dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:layout_gravity="center_horizontal"
-            android:textSize="20sp"
-            android:layout_marginTop="20dp">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textAlignment="textStart"
-                android:textSize="20sp"
-                android:text="1.您是否会感觉到疼痛?"/>
-            <RadioGroup
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <RadioButton
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="18sp"
-                    android:text="是"/>
-                <RadioButton
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="18sp"
-                    android:text="否"/>
-            </RadioGroup>
-
+            android:orientation="vertical">
         </LinearLayout>
+        <Button
+            android:id="@+id/btn_submit"
+            android:layout_width="160dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/ic_login"
+            android:textColor="#FFFFFF"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            android:layout_marginTop="40dp"
+            android:text="@string/submit"
+            style="?android:attr/borderlessButtonStyle"/>
     </LinearLayout>
 </ScrollView>

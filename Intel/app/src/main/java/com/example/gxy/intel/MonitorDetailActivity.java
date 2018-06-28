@@ -172,7 +172,7 @@ public class MonitorDetailActivity extends AppCompatActivity implements Navigati
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
-                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                        Intent intent = new Intent(getApplicationContext(), MonitorActivity.class);
                         startActivity(intent);
                         finish();
                     }
@@ -183,6 +183,9 @@ public class MonitorDetailActivity extends AppCompatActivity implements Navigati
     }
 
     public void update_monitor(View view) {
-        Toast.makeText(this, "Unfinished", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this, UpdateMonitorActivity.class);
+        intent.putExtra("monitor_name", getIntent().getStringExtra("monitor_name"));
+        startActivity(intent);
+        finish();
     }
 }

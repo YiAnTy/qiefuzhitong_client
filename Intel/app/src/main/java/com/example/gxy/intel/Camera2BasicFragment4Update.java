@@ -6,9 +6,9 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
-import android.graphics.Bitmap;
 import android.graphics.ImageFormat;
 import android.graphics.Matrix;
 import android.graphics.Point;
@@ -36,7 +36,6 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.util.Size;
 import android.util.SparseIntArray;
@@ -45,13 +44,10 @@ import android.view.Surface;
 import android.view.TextureView;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -79,7 +75,7 @@ import okhttp3.Response;
  * Created by gxy on 18-2-14.
  */
 
-public class Camera2BasicFragment extends Fragment
+public class Camera2BasicFragment4Update extends Fragment
         implements View.OnClickListener, ActivityCompat.OnRequestPermissionsResultCallback {
 
     /**
@@ -185,7 +181,7 @@ public class Camera2BasicFragment extends Fragment
     private CameraDevice mCameraDevice;
 
     /**
-     * The {@link android.util.Size} of camera preview.
+     * The {@link Size} of camera preview.
      */
     private Size mPreviewSize;
 
@@ -422,8 +418,8 @@ public class Camera2BasicFragment extends Fragment
         }
     }
 
-    public static Camera2BasicFragment newInstance() {
-        return new Camera2BasicFragment();
+    public static Camera2BasicFragment4Update newInstance() {
+        return new Camera2BasicFragment4Update();
     }
 
     @Override
@@ -604,7 +600,7 @@ public class Camera2BasicFragment extends Fragment
     }
 
     /**
-     * Opens the camera specified by {@link Camera2BasicFragment#mCameraId}.
+     * Opens the camera specified by {@link Camera2BasicFragment4Update#mCameraId}.
      */
     private void openCamera(int width, int height) {
         if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA)
@@ -737,7 +733,7 @@ public class Camera2BasicFragment extends Fragment
     }
 
     /**
-     * Configures the necessary {@link android.graphics.Matrix} transformation to `mTextureView`.
+     * Configures the necessary {@link Matrix} transformation to `mTextureView`.
      * This method should be called after the camera preview size is determined in
      * setUpCameraOutputs and also the size of `mTextureView` is fixed.
      *
@@ -861,13 +857,15 @@ public class Camera2BasicFragment extends Fragment
         showToast("Uploading");
         OkHttpClient mOkHttpClient = new OkHttpClient();
         RequestBody requestBody = new MultipartBody.Builder()
-                    .setType(MultipartBody.FORM)
-                    .addFormDataPart("image", "pic.jpg",
-                            RequestBody.create(MediaType.parse("image/jpeg"), mFile))
-                    .build();
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("token", getActivity().getSharedPreferences("intel", Context.MODE_PRIVATE).getString("token",""))
+                .addFormDataPart("monitor_name", getActivity().getIntent().getStringExtra("monitor_name"))
+                .addFormDataPart("image", "pic.jpg",
+                        RequestBody.create(MediaType.parse("image/jpeg"), mFile))
+                .build();
 
         Request request = new Request.Builder()
-                .url("http://123.56.28.84:8080/recognition")
+                .url("http://123.56.28.84:8080/update_monitor")
                 .post(requestBody)
                 .build();
 
@@ -878,37 +876,11 @@ public class Camera2BasicFragment extends Fragment
             }
 
             @Override
-            public void onResponse(Call call, Response response) throws IOException {
+            public void onResponse(Call call, Response response) {
                 showToast("Upload success");
-                final Activity activity = getActivity();
-                try {
-                    final JSONObject json = new JSONObject(response.body().string());
-                    if (activity != null) {
-                        activity.runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                try {
-
-
-                                    MainActivity.result_content = json.getString("disease_result");
-                                    MainActivity.result_title = json.getString("disease_name");
-                                    MainActivity.bitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), Uri.fromFile(mFile));;
-                                    MainActivity.treat_content = json.getString("treat");
-                                    MainActivity.questions = true;
-
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                } catch (FileNotFoundException e) {
-                                    e.printStackTrace();
-                                } catch (IOException e) {
-                                    e.printStackTrace();
-                                }
-                            }
-                        });
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+                Intent intent = new Intent(getActivity().getApplicationContext(), MonitorActivity.class);
+                startActivity(intent);
+                getActivity().finish();
             }
         });
     }
